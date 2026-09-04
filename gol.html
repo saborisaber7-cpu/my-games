@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<title>گل یا پوچ</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Tahoma;-webkit-tap-highlight-color:transparent;user-select:none}
+body{min-height:100vh;background:linear-gradient(135deg,#134e5e,#71b280);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;touch-action:manipulation}
+h1{margin-bottom:30px}
+#hands{display:flex;gap:25px}
+.hand{font-size:110px;cursor:pointer;transition:transform .15s;filter:drop-shadow(0 8px 12px rgba(0,0,0,.4))}
+.hand:active{transform:scale(.9)}
+#res{margin-top:35px;font-size:1.6rem;min-height:2.2em;text-align:center}
+#flower{font-size:70px;margin-top:10px;min-height:80px}
+a{color:#ffe9a8;margin-top:25px;text-decoration:none}
+#hint{color:#dfe;opacity:.8;margin-top:8px}
+</style>
+</head>
+<body>
+<h1>🌸 گل یا پوچ</h1>
+<div id="hands">
+<div class="hand" data-i="0">🤚</div>
+<div class="hand" data-i="1">✋</div>
+</div>
+<div id="hint">کف یکی از دست‌ها را لمس کن!</div>
+<div id="res"></div>
+<div id="flower"></div>
+<a href="index.html">⬅ بازگشت</a>
+<script>
+const res=document.getElementById('res'),flower=document.getElementById('flower'),hint=document.getElementById('hint');
+document.querySelectorAll('.hand').forEach(h=>{
+ h.addEventListener('click',()=>{
+  const win=Math.random()<0.5;
+  hint.textContent='';
+  res.textContent=win?'🎉 آفرین! گل پیدا شد!':'😐 پوچ! این دست خالی بود';
+  flower.textContent=win?'🌷':'💨';
+ });
+});
+</script>
+</body>
+</html>

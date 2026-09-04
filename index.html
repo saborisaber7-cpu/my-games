@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>🎮 مجموعه بازی‌های موبایلی</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Tahoma;-webkit-tap-highlight-color:transparent}
+body{min-height:100vh;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);color:#fff;display:flex;flex-direction:column;align-items:center;padding:30px 15px;overflow-x:hidden}
+h1{font-size:2rem;background:linear-gradient(90deg,#ff6ec4,#ffc36e,#7873f5);-webkit-background-clip:text;background-clip:text;color:transparent;text-align:center;margin-bottom:8px}
+p.sub{color:#cbd5e1;margin-bottom:30px;text-align:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:18px;max-width:600px;width:100%}
+a.card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:28px 12px;border-radius:22px;text-decoration:none;color:#fff;font-size:1.15rem;font-weight:bold;transition:transform .2s;box-shadow:0 8px 24px rgba(0,0,0,.4);text-align:center}
+a.card:active{transform:scale(.95)}
+a.card span{font-size:2.6rem}
+.c1{background:linear-gradient(135deg,#f7971e,#ffd200)}
+.c2{background:linear-gradient(135deg,#43cea2,#185a9d)}
+.c3{background:linear-gradient(135deg,#e53935,#8e2de2)}
+.c4{background:linear-gradient(135deg,#ee0979,#ff6a00)}
+.c5{background:linear-gradient(135deg,#00c6ff,#0072ff)}
+footer{margin-top:35px;color:#94a3b8;font-size:.85rem}
+.blob{position:fixed;border-radius:50%;filter:blur(70px);opacity:.35;z-index:-1}
+.b1{width:250px;height:250px;background:#ff6ec4;top:-60px;left:-60px}
+.b2{width:280px;height:280px;background:#7873f5;bottom:-80px;right:-70px}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div>
+<h1>🎮 باشگاه بازی‌ها</h1>
+<p class="sub">یک بازی را انتخاب کن و لذت ببر!</p>
+<div class="grid">
+<a class="card c1" href="coin.html"><span>🪙</span>شیر یا خط</a>
+<a class="card c2" href="gol.html"><span>🌸</span>گل یا پوچ</a>
+<a class="card c3" href="foosball.html"><span>⚽</span>فوتبال دستی</a>
+<a class="card c4" href="dart.html"><span>🎯</span>دارت</a>
+<a class="card c5" href="river.html"><span>✈️</span>حمله به رودخانه</a>
+</div>
+<footer>ساخته‌شده برای موبایل ❤️</footer>
+</body>
+</html>
