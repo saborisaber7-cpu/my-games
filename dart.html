@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>دارت چالشی</title>
+<style>
+  body{margin:0;background:#1a1a2e;color:#fff;font-family:Tahoma,sans-serif;
+       display:flex;flex-direction:column;align-items:center;touch-action:manipulation;user-select:none}
+  h1{font-size:20px;margin:8px}
+  #info{font-size:16px;margin-bottom:6px}
+  canvas{background:#16213e;border-radius:12px;touch-action:none}
+</style>
+</head>
+<body>
+<h1>🎯 دارت — وقتی رتیکل روی مرکز است بزن!</h1>
+<div id="info">امتیاز: 0 | تیر: 0</div>
+<canvas id="c" width="400" height="400"></canvas>
+<script>
+const cv=document.getElementById('c'),ctx=cv.getContext('2d');
+const CX=200,CY=200;
+let t=0,score=0,throws=0,lastRing=null;
+const trace=[];
+function lissajous(){
+  return {x:CX+150*Math.sin(3*t)+20*Math.sin(11*t),
+          y:CY+150*Math.sin(2*t+Math.PI/3)+20*Math.cos(13*t)};
+}
+function drawBoard(){
+  const rings=[[30,'#ff3b30'],[60,'#fff'],[95,'#1e90ff'],[130,'#fff'],[165,'#2e8b57']];
+  rings.forEach(r=>{ctx.beginPath();ctx.arc(CX,CY,r[0],0,7);ctx.fillStyle=r[1];ctx.fill();ctx.stroke();});
+  ctx.beginPath();ctx.arc(CX,CY,3,0,7);ctx.fillStyle='#000';ctx.fill();
+  ctx.fillStyle='#000';ctx.font='12px Tahoma';
+  ctx.fillText('۵۰',CX-9,CY+4);ctx.fillText('۲۵',CX-60,CY+4);ctx.fillText('۱۰',CX-155,CY+4);
+}
+function loop(){
+  t+=0.02;
+  ctx.clearRect(0,0,400,400);
+  drawBoard();
+  // rah-e tay shode
+  ctx.strokeStyle='rgba(255,255,0,.6)';
+  trace.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,2,0,7);ctx.fillStyle='rgba(255,255,0,.6)';ctx.fill();});
+  const p=lissajous();
+  trace.push({x:p.x,y:p.y});if(trace.length>40)trace.shift();
+  // reticle
+  ctx.strokeStyle='#ff0';ctx.lineWidth=2;
+  ctx.beginPath();ctx.arc(p.x,p.y,12,0,7);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(p.x-18,p.y);ctx.lineTo(p.x-6,p.y);ctx.moveTo(p.x+6,p.y);ctx.lineTo(p.x+18,p.y);
+  ctx.moveTo(p.x,p.y-18);ctx.lineTo(p.x,p.y-6);ctx.moveTo(p.x,p.y+6);ctx.lineTo(p.x,p.y+18);ctx.stroke();
+  requestAnimationFrame(loop);
+}
+function throwDart(e){
+  const r=cv.getBoundingClientRect(),p=lissajous();
+  const x=e.clientX-r.left,y=e.clientY-r.top;
+  const dist=Math.hypot(x-CX,y-CY);
+  const ret=Math.hypot(p.x-CX,p.y-CY);
+  const retErr=Math.hypot(x-p.x,y-p.y);
+  let pts=0,landed;
+  if(retErr>45){landed={x:p.x,y:p.y};msg('دیر یا زود! رتیکل جای دیگر بود 😅');}
+  else{landed={x:x,y:y};pts=dist<15?50:dist<30?25:dist<60?10:dist<100?5:1;}
+  throws++;score+=pts;
+  // draw dart
+  ctx.beginPath();ctx.arc(landed.x,landed.y,5,0,7);ctx.fillStyle='#e91e63';ctx.fill();
+  document.getElementById('info').textContent='امتیاز: '+score+' | تیر: '+throws+(pts?' | آخرین: '+pts:'');
+}
+function msg(s){document.getElementById('info').textContent=s+' — امتیاز: '+score+' | تیر: '+throws;
+  setTimeout(()=>document.getElementById('info').textContent='امتیاز: '+score+' | تیر: '+throws,1200);}
+cv.addEventListener('pointerdown',throwDart);
+loop();
+</script>
+</body>
+</html>
